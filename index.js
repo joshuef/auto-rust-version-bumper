@@ -33,7 +33,7 @@ const bump = async () => {
           });
         
         // modify cargo.toml
-        let tags = core.exec("git describe --tags");
+        let tags = exec.exec("git describe --tags");
 
 
         let version = '';
