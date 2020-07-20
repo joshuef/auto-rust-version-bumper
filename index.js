@@ -29,25 +29,12 @@ const bump = async () => {
         await standardVersion({
             noVerify: true,
             silent: false,
-            // bumpFiles: [{ 
-            //     fileName: 'Cargo.toml',
-            //     updater: {
-            //         readVersion: () => {
-            //             var json = toml.parse(contents);
-
-            //             return  json.package.version
-            //         },
-            //         writeVersion: () => {
-            //             var json = toml.parse(contents);
-            //             json.package.version = version;
-                    
-            //             return toml.stringify(json)
-            //         }
-            //     }
-            // }]
           });
           
-          core.debug("Version bumped successfully");
+
+        core.debug("one");
+        core.debug("two");
+        core.debug("Version bumped successfully");
           
     
         core.debug(`Attempting to push to ${branch}`);
