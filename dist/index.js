@@ -4313,8 +4313,9 @@ const bump = async () => {
         // `who-to-greet` input defined in action metadata file
         const token = core.getInput('personal-access-token');
 
+        core.debug("Running rust auto bumper inside");
 
-        if( token.length() === 0 ) {
+        if( token.length === 0 ) {
             core.setFailed("`personal-access-token must be set")
         }
         const branch = core.getInput('branch');
