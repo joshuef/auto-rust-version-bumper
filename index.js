@@ -22,14 +22,15 @@ const bump = async () => {
         // Get the JSON webhook payload for the event that triggered the workflow
         // const repo = process.env.REPO;
         // const repo = process.env.GITHUB_ACTOR;
-        core.debug(`The repo: $REPO`);
-        core.debug(`The repo: $GITHUB_ACTOR`);
-    
         await exec.exec(`git remote add github "$REPO"`);
         await exec.exec('git config --local user.email "action@github.com"');
         await exec.exec('git config --local user.name "GitHub Action"');
+        
+        core.debug(`The repo: ${process.env.REPO}`);
+        core.debug(`The actor: ${process.env.GITHUB_ACTOR}`);
     
         core.debug("github setup locally");
+        core.debug(`git branch: ${branch}`);
     //   const payload = JSON.stringify(github.context.payload, undefined, 2)
         // await exec.exec('yarn standard-version -a');
     
@@ -42,6 +43,7 @@ const bump = async () => {
           
     
         core.debug(`Attempting to push to ${branch}`);
+        // git push --follow-tags origin HEAD
         await exec.exec(`git push https://$GITHUB_ACTOR:${token}@github.com/$REPO" HEAD:${branch} --tags`);
     
     } catch (error) {
