@@ -3,6 +3,8 @@ const core = require('@actions/core');
 const exec = require('@actions/exec');
 const standardVersion = require('standard-version');
 
+
+core.debug("Running rust auto bumper");
 const bump = async () => {
     try {
         // `who-to-greet` input defined in action metadata file
