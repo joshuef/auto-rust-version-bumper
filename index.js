@@ -26,7 +26,7 @@ const bump = async () => {
         await exec.exec('git config --local user.email "action@github.com"');
         await exec.exec('git config --local user.name "GitHub Action"');
         
-        core.debug(`The repo: ${process.env.REPO}`);
+        core.debug(`The repo: ${process.env.GITHUB_REPOSITORY_NAME}`);
         core.debug(`The actor: ${process.env.GITHUB_ACTOR}`);
     
         core.debug("github setup locally");
@@ -44,7 +44,7 @@ const bump = async () => {
     
         core.debug(`Attempting to push to ${branch}`);
         // git push --follow-tags origin HEAD
-        await exec.exec(`git push https://$GITHUB_ACTOR:${token}@github.com/$REPO" HEAD:${branch} --tags`);
+        await exec.exec(`git push "https://$GITHUB_ACTOR:${token}@github.com/$GITHUB_REPOSITORY_NAME" HEAD:${branch} --tags`);
     
     } catch (error) {
       core.setFailed(error.message);
