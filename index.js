@@ -3,43 +3,46 @@ const core = require('@actions/core');
 const exec = require('@actions/exec');
 const standardVersion = require('standard-version');
 
-try {
-    // `who-to-greet` input defined in action metadata file
-    const token = core.getInput('personal_access_token');
-    //   console.log(`Hello ${nameToGreet}!`);
-    //   const time = (new Date()).toTimeString();
-    //   core.setOutput("time", time);
-    // Get the JSON webhook payload for the event that triggered the workflow
-    // const repo = process.env.REPO;
-    // const repo = process.env.GITHUB_ACTOR;
-    core.debug(`The repo: $REPO`);
-    core.debug(`The repo: $GITHUB_ACTOR`);
+const bump = async () => {
+    try {
+        // `who-to-greet` input defined in action metadata file
+        const token = core.getInput('personal_access_token');
+        //   console.log(`Hello ${nameToGreet}!`);
+        //   const time = (new Date()).toTimeString();
+        //   core.setOutput("time", time);
+        // Get the JSON webhook payload for the event that triggered the workflow
+        // const repo = process.env.REPO;
+        // const repo = process.env.GITHUB_ACTOR;
+        core.debug(`The repo: $REPO`);
+        core.debug(`The repo: $GITHUB_ACTOR`);
+    
+        await exec.exec(`git remote add github "$REPO"`);
+        await exec.exec('git config --local user.email "action@github.com"');
+        await exec.exec('git config --local user.name "GitHub Action"');
+    
+        core.debug("github setup locally");
+    //   const payload = JSON.stringify(github.context.payload, undefined, 2)
+        // await exec.exec('yarn standard-version -a');
+    
+        await standardVersion({
+            noVerify: true,
+            silent: false
+          });
+          
+          core.debug("Version bumped successfully");
+          
+    
+        core.debug("Version bumped successfully");
+        await exec.exec(`git push https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$REPO" HEAD:master --tags`);
+    
+    } catch (error) {
+      core.setFailed(error.message);
+    }
 
-    await exec.exec(`git remote add github "$REPO"`);
-    await exec.exec('git config --local user.email "action@github.com"');
-    await exec.exec('git config --local user.name "GitHub Action"');
-
-    core.debug("github setup locally");
-//   const payload = JSON.stringify(github.context.payload, undefined, 2)
-    // await exec.exec('yarn standard-version -a');
-
-    await standardVersion({
-        noVerify: true,
-        silent: false
-      });
-      
-      core.debug("Version bumped successfully");
-      
-
-    core.debug("Version bumped successfully");
-    await exec.exec(`git push https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$REPO" HEAD:master --tags`);
-
-} catch (error) {
-  core.setFailed(error.message);
 }
 
 
-
+bump()
 // name: Version Bump and Tag
 
 // on:
