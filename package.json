@@ -7,7 +7,7 @@
   "author": "Josh Wilson",
   "license": "MIT",
   "scripts" : {
-    "build" : "ncc build index.js && ncc build toml-updater.js"
+    "build" : "ncc build index.js && ncc build toml-updater.js -o dist/toml-updater.js"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",
