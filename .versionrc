@@ -2,7 +2,7 @@
   "bumpFiles": [
     {
       "filename": "Cargo.toml",
-      "updater": "dist/toml-updater.js"
+      "updater": "toml-updater.js"
     }
   ]
 }

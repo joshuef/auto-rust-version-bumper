@@ -2,12 +2,11 @@
   "name": "auto-rust-version-bumper",
   "version": "1.0.0",
   "description": "Automatically bump rust crate's changelog + version based upon conventional commits.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "repository": "https://github.com/joshuef/aut-rust-version-bumper",
   "author": "Josh Wilson",
   "license": "MIT",
   "scripts": {
-    "build": "ncc build index.js -o dist/main && ncc build toml-updater.js -o dist/toml-updater"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",
