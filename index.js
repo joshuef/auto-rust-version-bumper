@@ -6,7 +6,7 @@ const standardVersion = require('standard-version');
 const bump = async () => {
     try {
         // `who-to-greet` input defined in action metadata file
-        const token = core.getInput('personal_access_token');
+        const token = core.getInput('personal-access-token');
         //   console.log(`Hello ${nameToGreet}!`);
         //   const time = (new Date()).toTimeString();
         //   core.setOutput("time", time);
