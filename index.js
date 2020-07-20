@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const exec = require('@actions/exec');
 const standardVersion = require('standard-version');
 const toml = require('@iarna/toml')
-
+const fs = require('fs');
 
 const bump = async () => {
     try {
@@ -34,7 +34,7 @@ const bump = async () => {
         
         // modify cargo.toml
         let tags = exec.exec("git describe --tags");
-
+        core.debug(`first tags check: ${tags}`);
 
         let version = '';
         let myError = '';
