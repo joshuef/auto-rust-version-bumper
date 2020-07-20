@@ -32,8 +32,6 @@ const bump = async () => {
           });
           
 
-        core.debug("one");
-        core.debug("two");
         core.debug("Version bumped successfully");
           
     
