@@ -6,14 +6,13 @@
   "repository": "https://github.com/joshuef/aut-rust-version-bumper",
   "author": "Josh Wilson",
   "license": "MIT",
-  "scripts" : {
-    "build" : "ncc build index.js && ncc build toml-updater.js -o dist/toml-updater.js"
+  "scripts": {
+    "build": "ncc build index.js -o dist/main && ncc build toml-updater.js -o dist/toml-updater"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/exec": "^1.0.4",
     "@iarna/toml": "^2.2.5",
-    "@zeit/ncc": "^0.22.3",
     "standard-version": "^8.0.2"
   }
 }
