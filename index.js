@@ -7,6 +7,12 @@ const bump = async () => {
     try {
         // `who-to-greet` input defined in action metadata file
         const token = core.getInput('personal-access-token');
+
+
+        if( token.length() === 0 ) {
+            core.setFailed("`personal-access-token must be set")
+        }
+        const branch = core.getInput('branch');
         //   console.log(`Hello ${nameToGreet}!`);
         //   const time = (new Date()).toTimeString();
         //   core.setOutput("time", time);
@@ -32,8 +38,8 @@ const bump = async () => {
           core.debug("Version bumped successfully");
           
     
-        core.debug("Version bumped successfully");
-        await exec.exec(`git push https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$REPO" HEAD:master --tags`);
+        core.debug(`Attempting to push to ${branch}`);
+        await exec.exec(`git push https://$GITHUB_ACTOR:${token}@github.com/$REPO" HEAD:${branch} --tags`);
     
     } catch (error) {
       core.setFailed(error.message);
