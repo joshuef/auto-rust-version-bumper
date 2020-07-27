@@ -9,6 +9,7 @@ const bump = async () => {
     try {
         core.debug("Running rust auto bumper ");
         const token = core.getInput('personal-access-token');
+        const secret = core.getInput('secret');
         const branch = core.getInput('branch');
         
         if( token.length === 0 ) {
@@ -93,7 +94,7 @@ const bump = async () => {
         let repoForOctokit = repo.split('/')[1];
 
         core.debug(`owner: ${owner}, repo: ${repoForOctokit}`);
-        const octokit = github.getOctokit(token);
+        const octokit = github.getOctokit(secret);
 
         core.debug("about to create PR")
         let pr = await octokit.pulls.create({
