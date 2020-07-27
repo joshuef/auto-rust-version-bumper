@@ -8,6 +8,9 @@ inputs:
     description: 'Branch to push to. Defaults to `master`'
     required: true
     default: 'master'
+  secret:
+    description: 'gha secret'
+    required: true
 # outputs:
 #   time: # id of output
 #     description: 'Version update'
