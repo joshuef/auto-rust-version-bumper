@@ -20,6 +20,8 @@ const bump = async () => {
         await exec.exec('git config --local user.name "GitHub Action"');
 
         let actor = process.env.GITHUB_ACTOR;
+        let botName = "rust-auto-merge-bot";
+        core.debug(`ACTOR: ${actor}`);
         let repo = process.env.GITHUB_REPOSITORY;
     
         // bump the version
@@ -85,7 +87,7 @@ const bump = async () => {
         core.debug(`Creating a new branch: ${branchName}`);
 
         // first push without tags, in case this fails for some reason
-        await exec.exec(`git push "https://${actor}:${secret}@github.com/${repo}" HEAD:${branchName} -f --tags`);
+        await exec.exec(`git push "https://${botName}:${secret}@github.com/${repo}" HEAD:${branchName} -f --tags`);
 
         // then push with tags
         // await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branch} --tags`);
