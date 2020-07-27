@@ -97,22 +97,39 @@ const bump = async () => {
         const octokit = github.getOctokit(secret);
 
         core.debug("about to create PR")
-        let pr = await octokit.pulls.create({
-          owner,
-          repo: repoForOctokit,
-          title: `Automated version bump + changelog for ${version}`,
-          head: branchName,
-          base : 'master'
-      });
 
-      core.debug(`THE PR::::: response: ${pr}`);
+        try{ 
+
+            let pr = await octokit.pulls.create({
+              owner,
+              repo: repoForOctokit,
+              title: `Automated version bump + changelog for ${version}`,
+              head: branchName,
+              base : 'master'
+          });
+        }
+        catch (e )
+        {
+          if ( e.message.includes('already exists'))
+          {
+            // do nothing
+            core.debug("Branch already exists, so will be updated after the last push")
+          }
+          else {
+            core.setFailed(e);
+          }
+        }
+
+      core.debug(`THE PR::::: number: ${JSON.stringify(pr)}`);
+
+      let pull_number = pr.number;
 
 
       // merge the PR
       octokit.pulls.merge({
         owner,
         repo,
-        pull_number,
+        pull_number
       });
 
 
