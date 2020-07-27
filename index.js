@@ -87,7 +87,7 @@ const bump = async () => {
         core.debug(`Creating a new branch: ${branchName}`);
 
         // first push without tags, in case this fails for some reason
-        await exec.exec(`git push "https://${botName}:${secret}@github.com/${repo}" HEAD:${branchName} -f --tags`);
+        await exec.exec(`git push "https://${botName}:${secret}@github.com/${repo}" HEAD:${branchName} -f`);
 
         // then push with tags
         // await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branch} --tags`);
@@ -103,7 +103,7 @@ const bump = async () => {
         try{ 
 
             let pr = await octokit.pulls.create({
-              owner: botName,
+              owner,
               repo: repoForOctokit,
               title: `Automated version bump + changelog for ${version}`,
               head: branchName,
