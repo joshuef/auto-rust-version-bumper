@@ -107,6 +107,17 @@ const bump = async () => {
               head: branchName,
               base : 'master'
           });
+          core.debug(`THE PR::::: number: ${JSON.stringify(pr)}`);
+          
+                let pull_number = pr.number;
+          
+          
+                // merge the PR
+                octokit.pulls.merge({
+                  owner,
+                  repo,
+                  pull_number
+                });
         }
         catch (e )
         {
@@ -120,17 +131,6 @@ const bump = async () => {
           }
         }
 
-      core.debug(`THE PR::::: number: ${JSON.stringify(pr)}`);
-
-      let pull_number = pr.number;
-
-
-      // merge the PR
-      octokit.pulls.merge({
-        owner,
-        repo,
-        pull_number
-      });
 
 
       // octokit.pulls.createReview({
