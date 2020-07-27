@@ -92,8 +92,10 @@ const bump = async () => {
         let owner = repo.split('/')[0];
         let repoForOctokit = repo.split('/')[1];
 
+        core.debug(`owner: ${owner}, repo: ${repoForOctokit}`);
         const octokit = github.getOctokit(token);
 
+        core.debug("about to create PR")
         let pr = await octokit.pulls.create({
           owner,
           repo: repoForOctokit,
