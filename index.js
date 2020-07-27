@@ -8,12 +8,11 @@ const fs = require('fs');
 const bump = async () => {
     try {
         core.debug("Running rust auto bumper ");
-        const token = core.getInput('personal-access-token');
-        const secret = core.getInput('secret');
+        const token = core.getInput('token');
         const branch = core.getInput('branch');
         
         if( token.length === 0 ) {
-            core.setFailed("`personal-access-token must be set")
+            core.setFailed("`token` must be set")
         }
 
         await exec.exec('git config --local user.email "action@github.com"');
@@ -87,7 +86,7 @@ const bump = async () => {
         core.debug(`Creating a new branch: ${branchName}`);
 
         // first push without tags, in case this fails for some reason
-        await exec.exec(`git push "https://${botName}:${secret}@github.com/${repo}" HEAD:${branchName} -f`);
+        await exec.exec(`git push "https://${botName}:${token}@github.com/${repo}" HEAD:${branchName} -f`);
 
         // then push with tags
         // await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branch} --tags`);
@@ -96,7 +95,7 @@ const bump = async () => {
         let repoForOctokit = repo.split('/')[1];
 
         core.debug(`owner: ${owner}, repo: ${repoForOctokit}`);
-        const octokit = github.getOctokit(secret);
+        const octokit = github.getOctokit(token);
 
         core.debug("about to create PR")
 
