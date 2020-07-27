@@ -84,7 +84,7 @@ const bump = async () => {
         core.debug(`Creating a new branch: ${branchName}`);
 
         // first push without tags, in case this fails for some reason
-        await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branchName}`);
+        await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branchName} -f`);
 
         // then push with tags
         // await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branch} --tags`);
