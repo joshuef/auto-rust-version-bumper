@@ -85,7 +85,7 @@ const bump = async () => {
         core.debug(`Creating a new branch: ${branchName}`);
 
         // first push without tags, in case this fails for some reason
-        await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branchName} -f`);
+        await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branchName} -f --tags`);
 
         // then push with tags
         // await exec.exec(`git push "https://${actor}:${token}@github.com/${repo}" HEAD:${branch} --tags`);
@@ -107,17 +107,17 @@ const bump = async () => {
               head: branchName,
               base : 'master'
           });
-          core.debug(`THE PR::::: number: ${JSON.stringify(pr)}`);
+          // core.debug(`THE PR::::: number: ${JSON.stringify(pr)}`);
           
-                let pull_number = pr.number;
+          //       let pull_number = pr.number;
           
           
-                // merge the PR
-                octokit.pulls.merge({
-                  owner,
-                  repo,
-                  pull_number
-                });
+          //       // merge the PR
+          //       octokit.pulls.merge({
+          //         owner,
+          //         repo,
+          //         pull_number
+                // });
         }
         catch (e )
         {
